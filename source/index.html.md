@@ -1,10 +1,8 @@
 ---
-title: API Reference
+title: Lotus API
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
   - javascript
 
 toc_footers:
@@ -20,226 +18,268 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: "API documentation for Lotus - the reference Filecoin implementation."
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+This page contains all lotus API definitions. Interfaces defined here are exposed as JsonRPC 2.0 endpoints by lotus programs.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+## $method_title
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This is an example of how to structure a method for the docs.
 
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+$method_description
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+curl "api.chain.love" \
+    -H "$method_shell_call_with_parameters"
 ```
 
 ```javascript
-const kittn = require('kittn');
+let outbound_request = new Request('$method_js_call_with_parameters');
 
-let api = kittn.authorize('meowmeowmeow');
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
 ```
 
-> Make sure to replace `meowmeowmeow` with your API key.
+> The above command returns:
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```json
+$method_return_object
 ```
 
-```python
-import kittn
+### Permissions
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+This endpoint require the following permissions: `$method_required_permissions` 
+
+### Query parameters
+
+This method requires the following parameters
+
+| Name | Description | Default |
+| ---- | ----------- | ------- |
+| $parameter_name | $parameter_description | $parameter_default_value |
+
+<!-- If there are no parameters, the following text is shown: -->
+<!-- This method does not require any parameters. -->
+
+
+# Basics
+
+This page contains all lotus API definitions. Interfaces defined here are exposed as JsonRPC 2.0 endpoints by lotus programs.
+
+
+
+
+
+
+## Closing
+
+Close your connection to the Lotus node.
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+curl "api.chain.love" \
+    -H "Closing: null"
 ```
 
 ```javascript
-const kittn = require('kittn');
+let outbound_request = new Request('closing');
 
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
 ```
 
-> The above command returns JSON structured like this:
+> The above command returns an empty object:
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
+    {
+    }
 ]
 ```
 
-This endpoint retrieves all kittens.
+### Permissions
 
-### HTTP Request
+This endpoint require the following permissions: `read`
 
-`GET http://example.com/api/kittens`
+### Query parameters
 
-### Query Parameters
+This method does not require any parameters.
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
 
-## Get a Specific Kitten
+## Discover
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
+Returns key information about this Lotus node.
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+curl "api.chain.love" \
+    -H "discover"
 ```
 
 ```javascript
-const kittn = require('kittn');
+let outbound_request = new Request('discover');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
 ```
 
-> The above command returns JSON structured like this:
+> The above command returns:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "info": {
+        "title": "Lotus RPC API",
+            "version": "1.2.1/generated=2020-11-22T08:22:42-06:00"
+    },
+        "methods": [],
+        "openrpc": "1.2.6"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+### Permissions
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint require the following permissions: `read` 
 
-### HTTP Request
+### Query parameters
 
-`GET http://example.com/kittens/<ID>`
+This method does not require any parameters.
 
-### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
 
-## Delete a Specific Kitten
+## Session
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+Returns the current session time.
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+curl "api.chain.love" \
+    -H "session"
 ```
 
 ```javascript
-const kittn = require('kittn');
+let outbound_request = new Request('session');
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
 ```
 
-> The above command returns JSON structured like this:
+> The above command returns:
+
+```json
+[
+    {
+        "07070707-0707-0707-0707-070707070707"
+    }
+]
+```
+
+### Permissions
+
+This endpoint require the following permissions: `read` 
+
+### Query parameters
+
+This method does not require any parameters.
+
+
+
+## Shutdown
+
+Shutsdown the Lotus node.
+
+```shell
+curl "api.chain.love" \
+    -H "shutdown"
+```
+
+```javascript
+let outbound_request = new Request('shutdown');
+
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
+```
+
+> The above command returns an empty object:
+
+```json
+[
+    {
+    }
+]
+```
+
+### Permissions
+
+This endpoint require the following permissions: `admin` 
+
+### Query parameters
+
+This method does not require any parameters.
+
+
+
+## Version
+
+Returns the Lotus version number of this node.
+
+```shell
+curl "api.chain.love" \
+    -H "version"
+```
+
+```javascript
+let outbound_request = new Request('version');
+
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
+```
+
+> The above command returns:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "Version": "string value",
+  "APIVersion": 131328,
+  "BlockDelay": 42
 }
 ```
 
-This endpoint deletes a specific kitten.
+### Permissions
 
-### HTTP Request
+This endpoint require the following permissions: `read` 
 
-`DELETE http://example.com/kittens/<ID>`
+### Query parameters
 
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+This method does not require any parameters.
 
