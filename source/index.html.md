@@ -70,12 +70,10 @@ This method requires the following parameters
 <!-- This method does not require any parameters. -->
 
 
-# Basics
 
-This page contains all lotus API definitions. Interfaces defined here are exposed as JsonRPC 2.0 endpoints by lotus programs.
+# General
 
-
-
+These methods are focused on general interactions between your client and a Lotus node. Most of these methods configure the node, and do not return any data.
 
 
 
@@ -283,3 +281,77 @@ This endpoint require the following permissions: `read`
 
 This method does not require any parameters.
 
+
+## Auth
+
+The following methods focus on authentication between your client and the Lotus node you are connecting to.
+
+### AuthNew
+
+Return an authorization token from a Lotus node.
+
+```shell
+curl "api.chain.love" \
+    -H "authnew"
+```
+
+```javascript
+let outbound_request = new Request('authnew');
+
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
+```
+
+> If successful, the above command returns:
+
+```json
+[
+    {
+        "Ynl0ZSBhcnJheQ=="
+    }
+]
+```
+
+### Permissions
+
+This endpoint require the following permissions: `admin` 
+
+### Query parameters
+
+This method does not require any parameters.
+
+### AuthVerify
+
+Verifies if an authorization token is valid.
+
+```shell
+curl "api.chain.love" \
+    -H "authverify"
+```
+
+```javascript
+let outbound_request = new Request('authverify');
+
+fetch(outbound_request)
+.then(function(response) {
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.blob();
+})
+```
+
+> If successful, the above command returns:
+
+```json
+[
+    {
+        "Ynl0ZSBhcnJheQ=="
+    }
+]
+```
